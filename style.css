@@ -1,0 +1,316 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #4e73df, #1cc88a);
+}
+h1{
+    text-align: center;
+    color: rgb(26, 24, 6);
+    margin-top: 40px;
+
+}
+h2{
+    text-align: center;
+    color: rgb(26, 24, 6);
+
+
+
+}
+/* Main Container */
+.main-container {
+    width: 100%;
+    margin: 20px auto;
+
+}
+
+/* Logo + Title Container */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    width: 80px;
+    height: 100px;
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Logo Image */
+.logo {
+    width: 300px;      /* Change size here */
+    height: 200px;     /* Change size here */
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+/* Website Title */
+.site-title {
+    font-size: 28px;
+    color: #4e73df;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+/* Top Bar */
+.top-bar {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+
+}
+
+/* Content Layout */
+.content {
+    display: flex;
+    gap: 20px;
+    font-size: medium;
+    padding-left:  20px ;
+    padding-right: 20px;
+}
+
+/* Left Section */
+.left-section {
+    width: 50%;
+    background-color: rgb(100, 139, 161);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+}
+
+.left-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #010102;
+}
+
+/* Image Box */
+.image-box {
+    width: 100%;
+    height: 600px;   /* You can change height */
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Slider Section */
+.slider-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    text-align: center;
+}
+
+.slider {
+    text-align: center;
+    display: flex;
+    gap: 15px;
+    padding-bottom: 10px;
+    background-color: rgb(218, 199, 126);
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.slide-btn {
+    text-align: right;
+    text-indent: 5%;
+    text-shadow: #f8f9fc;
+    
+    min-width: 150px;
+    padding: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    background-color: #80454f;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+    
+}
+
+.slide-btn:hover {
+    background-color: #2e59d9;
+}
+
+/* Right Section */
+.right-section {
+    width: 50%;
+    background-color: rgb(100, 139, 161);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.right-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e71b2c;
+}
+
+/* Subject Cards */
+.subject-card {
+    background-color: #f8f9fc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.subject-card:hover {
+    background-color: #4e73df;
+    color: white;
+}
+/* Scientist Section */
+.scientist-section {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.scientist-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4e73df;
+}
+
+/* Horizontal Slider */
+.scientist-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+}
+
+/* Hide scrollbar (optional) */
+.scientist-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Card */
+.scientist-card {
+    min-width: 180px;
+    text-align: center;
+    background-color: #f8f9fc;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.scientist-card:hover {
+    transform: scale(1.05);
+}
+
+/* Image */
+.scientist-card img {
+    width: 160px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Name */
+.scientist-card p {
+    margin-top: 10px;
+    font-weight: bold;
+}
+/* Animation */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+/* Wrapper */
+.scientist-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Track (Moving Part) */
+.scientist-track {
+    display: flex;
+    gap: 30px;
+    animation: scrollLeft 20s linear infinite;
+}
+
+/* Card */
+.scientist-card {
+    min-width: 180px;
+    text-align: center;
+}
+.scientist-wrapper:hover .scientist-track {
+    animation-play-state: paused;
+}
+/* Notice Board Section */
+.notice-board {
+    margin-top: 50px;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+}
+
+.notice-board h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #4e73df;
+}
+
+/* Container Layout */
+.notice-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Individual Notice Card */
+.notice-card {
+    width: 50%;
+    background: #f8f9fc;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.notice-card:hover {
+    transform: translateY(-5px);
+}
+
+.notice-card h3 {
+    margin-bottom: 10px;
+    color: #2e59d9;
+    font-size: 16px;
+}
+
+.notice-card ul {
+    padding-left: 18px;
+}
+
+.notice-card li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
