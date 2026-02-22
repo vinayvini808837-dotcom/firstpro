@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Quiz Session</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .quiz-container { background: white; width: 650px; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 20px; font-weight: bold; }
+        .question-text { font-size: 20px; font-weight: 600; margin-bottom: 20px; min-height: 60px; }
+        .option { 
+            display: block; width: 100%; padding: 12px; margin: 10px 0; 
+            border: 2px solid #ddd; border-radius: 8px; cursor: pointer; 
+            text-align: left; transition: 0.3s; font-size: 16px; background: white;
+        }
+        .option:hover { background: #e1f5fe; border-color: #3498db; }
+        .option.selected { background: #3498db; color: white; border-color: #2980b9; }
+        .footer-nav { display: flex; justify-content: space-between; margin-top: 30px; }
+        .nav-btn { padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 120px; }
+        #prev-btn { background: #95a5a6; color: white; }
+        #next-btn { background: #2ecc71; color: white; }
+        #submit-btn { background: #e67e22; color: white; display: none; }
+        #result-screen { display: none; text-align: left; }
+        .res-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <!-- Main Quiz UI -->
+        <div id="quiz-box">
+            <div class="header">
+                <span id="subj-title">Subject</span>
+                <span id="q-progress">Question 1/25</span>
+            </div>
+            <div class="question-text" id="q-text">Loading...</div>
+            <div id="options-container"></div>
+            <div class="footer-nav">
+                <button class="nav-btn" id="prev-btn" onclick="changeQ(-1)">BACK</button>
+                <button class="nav-btn" id="next-btn" onclick="changeQ(1)">NEXT</button>
+                <button class="nav-btn" id="submit-btn" onclick="calcResults()">SUBMIT</button>
+            </div>
+        </div>
+
+        <!-- Result UI -->
+        <div id="result-screen">
+            <h2 style="text-align: center;">Exam Result</h2>
+            <div class="res-row"><span>Total Questions:</span> <strong>25</strong></div>
+            <div class="res-row"><span>Attempted:</span> <strong id="res-att">0</strong></div>
+            <div class="res-row"><span>Correct:</span> <strong id="res-corr" style="color:green">0</strong></div>
+            <div class="res-row"><span>Wrong:</span> <strong id="res-wrong" style="color:red">0</strong></div>
+            <div class="res-row"><span>Percentage:</span> <strong id="res-perc">0%</strong></div>
+            <button class="nav-btn" style="width: 100%; margin-top: 20px; background: #3498db; color: white;" onclick="window.location.href='index.html'">EXIT</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            "English": [
+                { q: "Synonym of 'Happy'?", options: ["Sad", "Joyful", "Angry", "Brave"], correct: 1 },
+                { q: "Which is a noun?", options: ["Run", "Quickly", "London", "Blue"], correct: 2 },
+                { q: "Antonym of 'Giant'?", options: ["Huge", "Large", "Dwarf", "Tall"], correct: 2 },
+                { q: "Choose the correct spelling:", options: ["Recieve", "Receive", "Recive", "Receve"], correct: 1 },
+                { q: "Past tense of 'Go'?", options: ["Went", "Gone", "Going", "Goes"], correct: 0 },
+                { q: "Which is an adjective?", options: ["Slowly", "Fast", "Beautiful", "Quickly"], correct: 2 },
+                { q: "Plural of 'Child'?", options: ["Childs", "Children", "Childrens", "Childes"], correct: 1 },
+                { q: "Identify the pronoun:", options: ["He", "Apple", "Eat", "Softly"], correct: 0 },
+                { q: "Synonym of 'Large'?", options: ["Tiny", "Small", "Enormous", "Thin"], correct: 2 },
+                { q: "Identify the verb:", options: ["Red", "Jump", "Loud", "Fast"], correct: 1 },
+                { q: "Fill in: ___ you coming?", options: ["Is", "Am", "Are", "Was"], correct: 2 },
+                { q: "Antonym of 'Start'?", options: ["Begin", "Finish", "Open", "New"], correct: 1 },
+                { q: "Which is a preposition?", options: ["And", "But", "In", "Wait"], correct: 2 },
+                { q: "Which is a conjunction?", options: ["Under", "Or", "Below", "Next"], correct: 1 },
+                { q: "Identify the adverb:", options: ["Slowly", "Happy", "Sad", "Fast"], correct: 0 },
+                { q: "Opposite of 'Old'?", options: ["Ancient", "New", "Modern", "Young"], correct: 3 },
+                { q: "Which is a proper noun?", options: ["City", "Boy", "Paris", "Toy"], correct: 2 },
+                { q: "A person who writes books is a/an:", options: ["Actor", "Doctor", "Author", "Baker"], correct: 2 },
+                { q: "The ___ is rising in the East.", options: ["Moon", "Star", "Sun", "Cloud"], correct: 2 },
+                { q: "What is the capital of 'England'?", options: ["Paris", "Berlin", "London", "Rome"], correct: 2 },
+                { q: "Which is a vowel?", options: ["B", "C", "D", "E"], correct: 3 },
+                { q: "Collective noun for bees?", options: ["Pack", "Herd", "Swarm", "Flock"], correct: 2 },
+                { q: "A ___ of fish.", options: ["School", "Pack", "Team", "Band"], correct: 0 },
+                { q: "The boy ___ a bicycle.", options: ["Rides", "Ride", "Riding", "Roded"], correct: 0 },
+                { q: "Correct article: ___ honest man.", options: ["A", "An", "The", "None"], correct: 1 }
+            ],
+            "Maths": [
+                { q: "5 + 5 = ?", options: ["10", "15", "20", "25"], correct: 0 },
+                { q: "10 * 2 = ?", options: ["12", "20", "8", "2"], correct: 1 },
+                { q: "Square root of 64?", options: ["6", "7", "8", "9"], correct: 2 },
+                { q: "100 / 4 = ?", options: ["20", "25", "50", "10"], correct: 1 },
+                { q: "3 + 3 * 3 = ?", options: ["18", "9", "12", "15"], correct: 2 },
+                { q: "Value of Pi (approx)?", options: ["2.14", "3.14", "4.14", "5.14"], correct: 1 },
+                { q: "How many sides in a hexagon?", options: ["5", "6", "7", "8"], correct: 1 },
+                { q: "Next number: 2, 4, 6, 8, __?", options: ["9", "10", "11", "12"], correct: 1 },
+                { q: "Sum of angles in a triangle?", options: ["90", "180", "270", "360"], correct: 1 },
+                { q: "Smallest prime number?", options: ["0", "1", "2", "3"], correct: 2 },
+                { q: "12 * 12 = ?", options: ["122", "144", "166", "188"], correct: 1 },
+                { q: "25% of 100?", options: ["20", "25", "30", "50"], correct: 1 },
+                { q: "Cube root of 27?", options: ["2", "3", "4", "5"], correct: 1 },
+                { q: "How many centimeters in a meter?", options: ["10", "100", "1000", "1"], correct: 1 },
+                { q: "90 - 45 = ?", options: ["35", "45", "55", "65"], correct: 1 },
+                { q: "A right angle is ___ degrees.", options: ["45", "90", "180", "360"], correct: 1 },
+                { q: "1/2 + 1/2 = ?", options: ["1/4", "2/4", "1", "2"], correct: 2 },
+                { q: "Opposite of Addition?", options: ["Multiplication", "Division", "Subtraction", "None"], correct: 2 },
+                { q: "Sides of a decagon?", options: ["8", "9", "10", "12"], correct: 2 },
+                { q: "10^2 = ?", options: ["10", "20", "100", "200"], correct: 2 },
+                { q: "Number of zeros in a million?", options: ["4", "5", "6", "7"], correct: 2 },
+                { q: "50 * 50 = ?", options: ["250", "2500", "500", "1000"], correct: 1 },
+                { q: "How many minutes in 2 hours?", options: ["60", "90", "120", "180"], correct: 2 },
+                { q: "Smallest 3-digit number?", options: ["99", "100", "101", "111"], correct: 1 },
+                { q: "Factorial of 3 (3!)?", options: ["3", "6", "9", "12"], correct: 1 }
+            ]
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const subject = params.get('subject') || "English";
+        const questions = quizData[subject] || quizData["English"];
+        let currentIdx = 0;
+        let userAnswers = new Array(25).fill(null);
+
+        function loadQ() {
+            document.getElementById('subj-title').innerText = subject;
+            document.getElementById('q-progress').innerText = `Question ${currentIdx + 1}/25`;
+            document.getElementById('q-text').innerText = questions[currentIdx].q;
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = "";
+            questions[currentIdx].options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option' + (userAnswers[currentIdx] === i ? ' selected' : '');
+                btn.innerText = opt;
+                btn.onclick = () => { userAnswers[currentIdx] = i; loadQ(); };
+                container.appendChild(btn);
+            });
+
+            document.getElementById('prev-btn').style.visibility = (currentIdx === 0) ? 'hidden' : 'visible';
+            document.getElementById('next-btn').style.display = (currentIdx === 24) ? 'none' : 'block';
+            document.getElementById('submit-btn').style.display = (currentIdx === 24) ? 'block' : 'none';
+        }
+
+        function changeQ(step) { currentIdx += step; loadQ(); }
+
+        function calcResults() {
+            let correct = 0, attempted = 0;
+            userAnswers.forEach((ans, i) => {
+                if (ans !== null) { attempted++; if (ans === questions[i].correct) correct++; }
+            });
+            document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            document.getElementById('res-att').innerText = attempted;
+            document.getElementById('res-corr').innerText = correct;
+            document.getElementById('res-wrong').innerText = attempted - correct;
+            document.getElementById('res-perc').innerText = ((correct / 25) * 100).toFixed(2) + "%";
+        }
+        loadQ();
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Instructions</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        
+        .info-block {
+            background: white;
+            padding: 40px;
+            width: 450px;
+            border: 3px solid #3498db;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 { 
+            color: #2c3e50; 
+            margin-top: 0; 
+            text-transform: uppercase; 
+            text-align: left; 
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .details { 
+            margin: 25px 0; 
+            font-size: 19px; 
+            color: #444; 
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .label {
+            font-weight: bold;
+            width: 160px;
+            display: inline-block;
+        }
+        
+        .timer-loop {
+            font-size: 45px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #start-btn {
+            display: none;
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        #start-btn:hover { background: #219150; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="info-block">
+        <!-- This will be updated by JS -->
+        <h1 id="display-subject">Subject</h1>
+        
+        <div class="details">
+            <p><span class="label">Total Questions:</span> <span>25</span></p>
+            <p><span class="label">Total Marks:</span> <span>100</span></p>
+            <p><span class="label">Time Given:</span> <span>60 Minutes</span></p>
+            <p><span class="label">Passing Score:</span> <span>40%</span></p>
+        </div>
+
+        <div id="timer-box">
+            <p style="text-align: center; color: #888;">Button unlocks in:</p>
+            <div id="timer-display" class="timer-loop">60s</div>
+        </div>
+
+        <!-- Start Button -->
+        <button id="start-btn">START QUIZ NOW</button>
+    </div>
+
+    <script>
+        // 1. Get subject name from the URL (?subject=English)
+        const params = new URLSearchParams(window.location.search);
+        const subject = params.get('subject') || "General Quiz";
+        
+        // Update the Heading
+        document.getElementById('display-subject').innerText = subject;
+
+        // 2. 60-Second Countdown
+        let timeLeft = 60;
+        const timerText = document.getElementById('timer-display');
+        const timerBox = document.getElementById('timer-box');
+        const startButton = document.getElementById('start-btn');
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerText.innerText = timeLeft + "s";
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown); 
+                timerBox.style.display = 'none'; 
+                startButton.style.display = 'block'; 
+            }
+        }, 1000);
+
+        // 3. Button Click Action (Sends subject name to next page)
+        startButton.onclick = function() {
+            window.location.href = 'exam-page.html?subject=' + encodeURIComponent(subject);
+        };
+    </script>
+</body>
+</html>

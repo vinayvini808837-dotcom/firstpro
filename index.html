@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Quiz Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Header Section -->
+<div class="header">
+
+    <div class="logo-container">
+        <img src="https://cdn.vectorstock.com/i/500p/92/32/education-student-logo-open-book-vector-23369232.jpg" alt="Quiz Logo" class="logo">
+    </div>
+
+</div>
+
+
+
+
+
+
+        <!-- Top Bar -->
+         <h1><center><strong>"Think Smart"</strong></center></h1>
+         <h2><center><i>"Success is not about being the best. It is about being better than you were yesterday."</i></center></h2>
+        </div>
+
+        <div class="content">
+
+                <!-- Image Section -->
+                <div class="image-box">
+                    <!-- You can edit this image -->
+                    <img
+                    width="600px" height="800px" src="im.jpg.jpg" alt="Quiz Image">
+                </div>
+        </div>
+
+                <!-- Sliding Options -->
+                <div class="slider-container">
+                    <div class="slider">
+                        <button class="slide-btn"><center>Result</center></button>
+                        <button class="slide-btn"><center>Key Answers</center></button>
+                        <button class="slide-btn"><center>Explanation</center></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- Update your Subject Selection area -->
+<div class="left-section">
+    <h2>Select Subject</h2>
+    <!-- Each card now calls the openQuiz function with its name -->
+    <div class="subject-card" onclick="openQuiz('English')">English</div>
+    <div class="subject-card" onclick="openQuiz('Maths')">Maths</div>
+    <div class="subject-card" onclick="openQuiz('Physics')">Physics</div>
+    <div class="subject-card" onclick="openQuiz('Chemistry')">Chemistry</div>
+    <div class="subject-card" onclick="openQuiz('Biology')">Biology</div>
+    <div class="subject-card" onclick="openQuiz('Computer Science')">Computer Science</div>
+    <div class="subject-card" onclick="openQuiz('History')">History</div>
+    <div class="subject-card" onclick="openQuiz('Geography')">Geography</div>
+    <div class="subject-card" onclick="openQuiz('Economics')">Economics</div>
+    <div class="subject-card" onclick="openQuiz('Political Science')">Political Science</div>
+    <!-- ... add others the same way ... -->
+</div>
+
+<script>
+    function openQuiz(subjectName) {
+        // This opens a new tab and sends the subject name in the URL
+        window.open('quiz-details.html?subject=' + encodeURIComponent(subjectName), '_blank');
+    }
+</script>
+
+
+
+
+
+
+
+
+
+ <div class="right-section">
+        <!-- Notice Board Section -->
+<div class="notice-board">
+
+    <h2>Notice Board</h2>
+
+    <div class="notice-container">
+
+        <div class="notice-card">
+            <h3>🏆 Last Year Achievers</h3>
+            <ul>
+                <li>Rahul - 98%</li>
+                <li>Anjali - 95%</li>
+                <li>Arun - 93%</li>
+            </ul>
+        </div>
+
+        <div class="notice-card">
+            <h3>📢 Latest Updates</h3>
+            <ul>
+                <li>New Maths Quiz Added</li>
+                <li>Science Test Available Now</li>
+                <li>Exam Schedule Released</li>
+            </ul>
+        </div>
+
+        <div class="notice-card">
+            <h3>💬 Student Feedback</h3>
+            <ul>
+                <li>"Very useful quiz platform!"</li>
+                <li>"Helped me improve my marks."</li>
+                <li>"Easy to understand questions."</li>
+            </ul>
+        </div>
+
+        <div class="notice-card">
+            <h3>📅 Upcoming Exams</h3>
+            <ul>
+                <li>Maths - March 10</li>
+                <li>English - March 15</li>
+                <li>Science - March 20</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+                    </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Scientists Section -->
+<div class="scientist-section">
+
+    <div class="scientist-slider">
+
+        <div class="scientist-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Albert_Einstein_Head_cleaned.jpg/250px-Albert_Einstein_Head_cleaned.jpg" alt="Scientist">
+            <p>Albert Einstein</p>
+        </div>
+
+        <div class="scientist-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg/250px-Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg" alt="Scientist">
+            <p>Isaac Newton</p>
+        </div>
+
+        <div class="scientist-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Subrahmanyan_Chandrasekhar.jpg/250px-Subrahmanyan_Chandrasekhar.jpg" alt="Scientist">
+            <p>Dr. S chandrashekar</p>
+        </div>
+
+        <div class="scientist-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Tesla_circa_1890.jpeg/250px-Tesla_circa_1890.jpeg" alt="Scientist">
+            <p>Nikola Tesla</p>
+        </div>
+
+        <div class="scientist-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/250px-Marie_Curie_c._1920s.jpg" alt="Scientist">
+            <p>Marie Curie </p>
+        </div>
+
+        <div class="scientist-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/250px-Thomas_Edison2.jpg" alt="Scientist">
+            <p>Thomas alwa Edison</p>
+        </div>
+
+    
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
